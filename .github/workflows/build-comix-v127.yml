@@ -1,0 +1,20 @@
+name: Build Comix v127 transfer
+on:
+  push:
+    branches:
+      - chatgpt-comix-v127-transfer
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decode AIX
+        run: |
+          base64 -d comix-v127-cf-fix.aix.b64.txt > en.comix-v127-cf-fix.aix
+          unzip -t en.comix-v127-cf-fix.aix
+      - name: Upload AIX
+        uses: actions/upload-artifact@v4
+        with:
+          name: comix-v127-cf-fix
+          path: en.comix-v127-cf-fix.aix
+          retention-days: 1
